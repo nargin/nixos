@@ -16,6 +16,8 @@ in
 	# Bootloader.
 	boot.loader.systemd-boot.enable = true;
 	boot.loader.efi.canTouchEfiVariables = true;
+	system.autoUpgrade.enable = true;
+	system.autoUpgrade.allowReboot = true;
 
 	networking.hostName = "nixos"; # Define your hostname.
 	# networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -127,12 +129,6 @@ in
 		enableSSHSupport = true;
 	};  
 
-	# programs.git = {
-	#   enable = true;
-	#   userName = "nargin";
-	#   userEmail = "92982124+nargin@users.noreply.github.com";
-	# };
-
 	# List packages installed in system profile. To search, run:
 	# $ nix search wget
 	environment.systemPackages = with pkgs; [
@@ -144,24 +140,27 @@ in
 		unstable.cargo
 		unstable.rustc
 		unstable.nodejs
-		
+		gcc
+		unstable.python3		
+
 		# Applications
 		google-chrome
 		discord
 		dbeaver
 		burpsuite
 		unstable.bruno
+		mongodb-compass
 		
 		# Dependencies
 		gnumake
 		
 		# Terminal Section
-			#starship
-		rio
 		kitty
 		bash
 		oh-my-fish
 		unstable.alacritty
+			tmux # multiplexer for alacritty
+			starship # prompting
 	];
 
 	# Some programs need SUID wrappers, can be configured further or are

@@ -3,11 +3,10 @@ import = ["~/.config/alacritty/catppuccin/catppuccin-frappe.toml"]
 live_config_reload = true
 
 [shell]
-program = "fish"
-args = ["-l"]
+program = "tmux"
 
 [window]
-startup_mode = "Fullscreen"
+startup_mode = "Windowed"
 decorations = "Transparent"
 dynamic_padding = false
 opacity = 0.9
