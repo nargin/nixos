@@ -9,15 +9,12 @@ in
 {
 	imports =
 		[ # Include the results of the hardware scan.
-		./hardware-configuration.nix
-		# <home-manager/nixos>
+			./hardware-configuration.nix
 		];
 
 	# Bootloader.
 	boot.loader.systemd-boot.enable = true;
 	boot.loader.efi.canTouchEfiVariables = true;
-	system.autoUpgrade.enable = true;
-	system.autoUpgrade.allowReboot = true;
 
 	networking.hostName = "nixos"; # Define your hostname.
 	# networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -95,17 +92,6 @@ in
 		extraGroups = [ "wheel" "networkmanager" "docker" ];
 	};
 
-	# Home-manager configuration
-	# home-manager.users.robin = { pkgs, ... }: {
-	# 	home.packages = [ pkgs.atool pkgs.httpie ];
-	# 	programs.fish.enable = true;
-
-	# 	# The state version is required and should stay at the version you
-	# 	# originally installed.
-	# 	home.stateVersion = "24.05";
-	# };
-	# programs.hyprland.enable = true;
-
 	# Install firefox.
 	programs.firefox.enable = true;
 
@@ -121,6 +107,9 @@ in
 		'';
 	};
 
+	# Allow command like "nix develop"
+	nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
 	# Allow unfree packages
 	nixpkgs.config.allowUnfree = true;
 
@@ -128,6 +117,12 @@ in
 		enable = true;
 		enableSSHSupport = true;
 	};  
+
+	# programs.git = {
+	#   enable = true;
+	#   userName = "nargin";
+	#   userEmail = "92982124+nargin@users.noreply.github.com";
+	# };
 
 	# List packages installed in system profile. To search, run:
 	# $ nix search wget
@@ -140,27 +135,30 @@ in
 		unstable.cargo
 		unstable.rustc
 		unstable.nodejs
+		unstable.deno
 		gcc
-		unstable.python3		
-
+		unstable.python3
+		zig
+		
 		# Applications
 		google-chrome
 		discord
 		dbeaver
-		burpsuite
 		unstable.bruno
 		mongodb-compass
-		
+		tor-browser
+		stremio
+	
 		# Dependencies
 		gnumake
 		
 		# Terminal Section
 		kitty
-		bash
 		oh-my-fish
-		unstable.alacritty
-			tmux # multiplexer for alacritty
-			starship # prompting
+		starship # prompting
+		#ghostty
+		#code-cursor
+
 	];
 
 	# Some programs need SUID wrappers, can be configured further or are
